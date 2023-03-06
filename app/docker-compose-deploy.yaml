@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    entrypoint: /bin/sh
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/dev-service-account.json
+
+  staging-deploz:
+    build: .
+    volumes:
+      - .:/app
+    entrypoint: /bin/sh
+    environment:
+      - GCP_PROJECT_ID=kissam-testing-project
+      - GOOGLE_APPLICATION_CREDENTIALS
+      - TOPIC=projects/kissam-testing-project/topics/topic1
+      - PROJECT_NAME=kissam-testing-project
+      - TEMP_BUCKET=gs://test-bucket-dg/temp_location
+      - DATAFLOW_RUNNER_SERVICE_ACCOUNT=714950193027-compute@developer.gserviceaccount.com     
